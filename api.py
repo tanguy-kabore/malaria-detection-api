@@ -14,8 +14,6 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import base64
-import json  # Pour gérer le format JSON des annotations
-import time
 
 # Initialisation de l'application Flask
 app = Flask(__name__)
