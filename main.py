@@ -17,9 +17,7 @@ import base64
 
 # Initialisation de l'application Flask
 app = Flask(__name__)
-
-# Configuration CORS pour permettre uniquement les origines de confiance
-CORS(app, resources={r"/predict": {"origins": ["https://malaria-detection-app.vercel.app"]}})
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Définition d'une classe Dropout fixe personnalisée
 class FixedDropout(Dropout):
