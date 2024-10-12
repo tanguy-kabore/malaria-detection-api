@@ -1,0 +1,17 @@
+# Utiliser une image Python comme base
+FROM python:3.9-slim
+
+# Créer un répertoire pour l'application
+WORKDIR /app
+
+# Copier les fichiers de l'application dans le conteneur
+COPY . /app
+
+# Installer les dépendances
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Exposer le port utilisé par Flask
+EXPOSE 8080
+
+# Démarrer l'application
+CMD ["gunicorn", "-b", "0.0.0.0:8080", "app:app"]

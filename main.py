@@ -281,4 +281,4 @@ def save_annotations():
     return jsonify({'message': 'Annotations et images sauvegardées avec succès'}), 200
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
