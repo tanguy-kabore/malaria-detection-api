@@ -17,7 +17,7 @@ import base64
 
 # Initialisation de l'application Flask
 app = Flask(__name__)
-# CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Définition d'une classe Dropout fixe personnalisée
 class FixedDropout(Dropout):
@@ -178,6 +178,12 @@ def combine_images(image_list, img_size=(64, 64)):  # Réduction de la taille de
     plt.close(fig)
 
     return buf
+
+# Route simple pour retourner "Hello World"
+@app.route('/hello', methods=['GET'])
+@cross_origin(origin='*')
+def hello_world():
+    return jsonify({'message': 'Hello World'}), 200
 
 # Route pour gérer les prédictions à partir d'un fichier envoyé dans la requête
 @app.route('/predict', methods=['POST'])
