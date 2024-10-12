@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 import tensorflow as tf
 import numpy as np
 from tensorflow.keras.models import load_model
@@ -17,7 +17,7 @@ import base64
 
 # Initialisation de l'application Flask
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}})
+# CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Définition d'une classe Dropout fixe personnalisée
 class FixedDropout(Dropout):
@@ -181,6 +181,7 @@ def combine_images(image_list, img_size=(64, 64)):  # Réduction de la taille de
 
 # Route pour gérer les prédictions à partir d'un fichier envoyé dans la requête
 @app.route('/predict', methods=['POST'])
+@cross_origin(origin='*')
 def predict():
     if 'file' not in request.files:
         return jsonify({'error': 'Aucun fichier fourni'}), 400
@@ -226,6 +227,7 @@ def predict():
 
 # Route pour sauvegarder les annotations
 @app.route('/save_annotations', methods=['POST'])
+@cross_origin(origin='*')
 def save_annotations():
     # Récupérer le corps de la requête
     data = request.json
